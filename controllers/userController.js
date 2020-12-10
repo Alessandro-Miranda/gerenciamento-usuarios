@@ -16,6 +16,7 @@ class UserController
             let values = this.getValues();
 
             this.getPhoto((content) => {
+                console.log(content);
                 values.photo = content;
                 this.addLine(this.getValues(), this.tableEl)
             });
@@ -30,7 +31,7 @@ class UserController
             return item.name === 'photo' && item;
         });
         let file = elements[0].files[0];
-        
+
         fileReader.onload = () => {
             callback(fileReader.result);
         };
