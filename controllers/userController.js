@@ -20,19 +20,20 @@ class UserController
     {
         let user = {};
 
-        this.formEl.elements.forEach(field => {
-            if(field.name === "gender")
+        for(var i = 0; i < this.formEl.elements.length; i++)
+        {    
+            if(this.formEl.elements[i] === "gender")
             {
-                if(field.checked)
+                if(this.formEl.elements[i].checked)
                 {   // forma de criar o json de maneira dinâmica
-                    user[field.name] = field.value;
+                    user[this.formEl.elements[i].name] = this.formEl.elements[i].value;
                 }
             }
             else
             {
-                user[field.name] = field.value;
+                user[this.formEl.elements[i].name] = this.formEl.elements[i].value;
             }
-        });
+        }
     
         return new User(user.name,
             user.gender,
