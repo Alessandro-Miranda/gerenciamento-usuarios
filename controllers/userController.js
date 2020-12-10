@@ -42,7 +42,6 @@ class UserController
             user.password,
             user.photo,
             user.admin);
-
     }
     addLine(dataUser)
     {
