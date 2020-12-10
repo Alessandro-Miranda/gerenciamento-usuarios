@@ -16,7 +16,6 @@ class UserController
             let values = this.getValues();
 
             this.getPhoto((content) => {
-                console.log(content);
                 values.photo = content;
                 this.addLine(this.getValues(), this.tableEl)
             });
