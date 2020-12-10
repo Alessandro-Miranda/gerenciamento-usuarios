@@ -32,21 +32,7 @@ class UserController
             {
                 user[field.name] = field.value;
             }
-        })
-        // for(var i = 0; i < this.formEl.elements.length; i++)
-        // {    
-        //     if(this.formEl.elements[i] === "gender")
-        //     {
-        //         if(this.formEl.elements[i].checked)
-        //         {   // forma de criar o json de maneira dinâmica
-        //             user[this.formEl.elements[i].name] = this.formEl.elements[i].value;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         user[this.formEl.elements[i].name] = this.formEl.elements[i].value;
-        //     }
-        // }
+        });
     
         return new User(user.name,
             user.gender,
