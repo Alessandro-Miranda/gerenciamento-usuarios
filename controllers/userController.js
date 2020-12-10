@@ -17,7 +17,7 @@ class UserController
 
             this.getPhoto((content) => {
                 values.photo = content;
-                this.addLine(this.getValues(), this.tableEl)
+                this.addLine(this.getValues())
             });
 
         });
