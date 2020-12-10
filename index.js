@@ -1,15 +1,20 @@
 var fields = document.querySelectorAll("#form-user-create [name]");
+var user = {};
 
-fields.forEach(fields => {
-    if(fields.name === "gender")
+fields.forEach(field => {
+    if(field.name === "gender")
     {
-        if(fields.checked)
-        {
-            console.log("checou")
+        if(field.checked)
+        {   // forma de criar o json de maneira dinâmica
+            user[field.name] = field.value;
         }
     }
     else
     {
-        console.log(fields)
+        user[field.name] = field.value;
     }
+});
+
+document.getElementById("form-user-create").addEventListener("submit", function(){
+    alert("funcionou");
 });
