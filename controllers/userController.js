@@ -45,8 +45,8 @@ class UserController
             if(field.name === "gender")
             {
                 if(field.checked)
-                {   // forma de criar o json de maneira dinâmica
-                    user[field.name] = field.value;
+                {   
+                    user[field.name] = field.value; // forma de criar o json de maneira dinâmica
                 }
             }
             else
@@ -68,7 +68,7 @@ class UserController
     {
         this.tableEl.innerHTML += `<tr>
                                         <td>
-                                            <img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm">
+                                            <img src=${dataUser.photo} alt="User Image" class="img-circle img-sm">
                                         </td>
                                         <td>${dataUser.name}</td>
                                         <td>${dataUser.email}</td>
