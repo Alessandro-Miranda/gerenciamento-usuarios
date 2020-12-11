@@ -9,7 +9,7 @@ class UserController
     }
 
     onSubmit()
-    {   // Verificar essa função no ambiente local para verificar a funcionalidade
+    {   
         this.formEl.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -17,7 +17,7 @@ class UserController
 
             this.getPhoto().then((content) => {
                 values.photo = content;
-                this.addLine(this.getValues())
+                this.addLine(values)
             },
             (e) => {
                 console.error(e);
@@ -40,7 +40,14 @@ class UserController
             fileReader.onerror = (e) => {
                 reject(e);
             }
-            fileReader.readAsDataURL(file);
+            if(file)
+            {
+                fileReader.readAsDataURL(file);
+            }
+            else
+            {
+                resolve("dist/img/boxed-bg.jpg");
+            }
         });
     }
     getValues()
@@ -53,6 +60,17 @@ class UserController
                 if(field.checked)
                 {   
                     user[field.name] = field.value; // forma de criar o json de maneira dinâmica
+                }
+            }
+            else if(field.name === "admin")
+            {
+                if(field.checked)
+                {
+                    user[field.name] = true;
+                }
+                else
+                {
+                    user[field.name] = false;
                 }
             }
             else
@@ -74,7 +92,7 @@ class UserController
     {
         this.tableEl.innerHTML += `<tr>
                                         <td>
-                                            <img src=${dataUser.photo} alt="User Image" class="img-circle img-sm">
+                                            <img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm">
                                         </td>
                                         <td>${dataUser.name}</td>
                                         <td>${dataUser.email}</td>
