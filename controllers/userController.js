@@ -9,7 +9,7 @@ class UserController
     }
 
     onSubmit()
-    {
+    {   // Verificar essa função no ambiente local para verificar a funcionalidade
         this.formEl.addEventListener("submit", (e) => {
             e.preventDefault();
 
