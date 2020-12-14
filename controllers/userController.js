@@ -61,7 +61,7 @@ class UserController
         let isValid = true;
 
         [...this.formEl.elements].forEach(field => {
-
+            // Verifica se os itens que estão passando no array são algum desses campos
             if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value)
             {
                 field.parentElement.classList.add("has-error");
