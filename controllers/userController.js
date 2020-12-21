@@ -102,19 +102,39 @@ class UserController
     }
     addLine(dataUser)
     {
-        this.tableEl.innerHTML += `<tr>
-                                        <td>
-                                            <img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm">
-                                        </td>
-                                        <td>${dataUser.name}</td>
-                                        <td>${dataUser.email}</td>
-                                        <td>${dataUser.admin ? "sim" : "não"}</td>
-                                        <td>${Utils.dateFormat(dataUser.register)}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
-                                            <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
-                                        </td>
-                                    </tr>
-                                `;
+        let tr = document.createElement("tr");
+
+        tr.dataset.user = JSON.stringify(dataUser);
+
+        tr.innerHTML = `<td>
+                            <img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm">
+                        </td>
+                        <td>${dataUser.name}</td>
+                        <td>${dataUser.email}</td>
+                        <td>${dataUser.admin ? "sim" : "não"}</td>
+                        <td>${Utils.dateFormat(dataUser.register)}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
+                            <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+                        </td>`;
+        
+        this.tableEl.appendChild(tr);
+        
+        this.updateCount();
+    }
+
+    updateCount()
+    {
+        let numberUsers = 0, numberAdmin = 0;
+
+        [...this.tableEl.children].forEach(tr => {
+            numberUsers++;
+
+            let user = JSON.parse(tr.dataset.user)
+            if(user._admin) numberAdmin++;
+        });
+
+        document.querySelector("#number-users").textContent = numberUsers;
+        document.querySelector("#number-users-admin").textContent = numberAdmin;
     }
 }
