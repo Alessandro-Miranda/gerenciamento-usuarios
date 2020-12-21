@@ -17,6 +17,8 @@ class UserController
 
             let values = this.getValues();
 
+            if(!values) return false;
+
             this.getPhoto().then((content) => {
                 values.photo = content;
                 this.addLine(values);
@@ -37,6 +39,7 @@ class UserController
             let elements = [...this.formEl.elements].filter(item => {
                 return item.name === 'photo' && item;
             });
+
             let file = elements[0].files[0];
     
             fileReader.onload = () => {
@@ -65,7 +68,7 @@ class UserController
             if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value)
             {
                 field.parentElement.classList.add("has-error");
-                invalid = false;
+                isValid = false;
             }
             
             if(field.name === "gender")
