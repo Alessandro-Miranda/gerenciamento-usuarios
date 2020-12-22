@@ -81,11 +81,10 @@ class UserController
             
             if(field.name == "gender")
             {
-                user[field.name] = field.value;
-                // if(field.checked)
-                // {   
-                //     user[field.name] = field.value; // forma de criar o json de maneira dinâmica
-                // }
+                if(field.checked)
+                {   
+                    user[field.name] = field.value; // forma de criar o json de maneira dinâmica
+                }
             }
             else if(field.name === "admin")
             {
