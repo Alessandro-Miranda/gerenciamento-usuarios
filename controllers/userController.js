@@ -26,30 +26,29 @@ class UserController
             let index = this.formUpdateEl.dataset.trindex;
             let tr = this.tableEl.rows[index];
             let userOld = JSON.parse(tr.dataset.user);
-            let result = Object.assign({}, userOld, values);
 
             this.getPhoto(this.formUpdateEl).then((content) => {
                 if(!values.photo)
                 {console.log("entrou nesse if")
-                    result._photo = userOld._photo;
+                    values._photo = userOld._photo;
                 }
                 else
                 {
-                    result._photo = content;
+                    values._photo = content;
                 }
 
-                tr.dataset.user = JSON.stringify(result);
+                tr.dataset.user = JSON.stringify(values);
 
                 tr.innerHTML = `<td>
-                                    <img src="${result._photo}" alt="User Image" class="img-circle img-sm">
+                                    <img src="${values._photo}" alt="User Image" class="img-circle img-sm">
                                 </td>
-                                <td>${result._name}</td>
-                                <td>${result._email}</td>
-                                <td>${result._admin ? "sim" : "não"}</td>
-                                <td>${Utils.dateFormat(result._register)}</td>
+                                <td>${values._name}</td>
+                                <td>${values._email}</td>
+                                <td>${values._admin ? "sim" : "não"}</td>
+                                <td>${Utils.dateFormat(values._register)}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-xs btn-flat btn-edit">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+                                    <button type="button" class="btn btn-danger btn-xs btn-flat btn-delete">Excluir</button>
                                 </td>`;
                 
                 this.addEventsTr(tr);
