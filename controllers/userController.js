@@ -29,7 +29,7 @@ class UserController
 
             this.getPhoto(this.formUpdateEl).then((content) => {
                 if(!values.photo)
-                {console.log("entrou nesse if")
+                {
                     values._photo = userOld._photo;
                 }
                 else
