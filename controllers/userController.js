@@ -38,22 +38,12 @@ class UserController
                     values._photo = content;
                 }
 
-                tr.dataset.user = JSON.stringify(values);
-
-                tr.innerHTML = `<td>
-                                    <img src="${values._photo}" alt="User Image" class="img-circle img-sm">
-                                </td>
-                                <td>${values._name}</td>
-                                <td>${values._email}</td>
-                                <td>${values._admin ? "sim" : "não"}</td>
-                                <td>${Utils.dateFormat(values._register)}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-xs btn-flat btn-edit">Editar</button>
-                                    <button type="button" class="btn btn-danger btn-xs btn-flat btn-delete">Excluir</button>
-                                </td>`;
+                let user = new User();
+                user.loadFromJSON(values);
+                tr = this.getTr(user, tr);
                 
-                this.addEventsTr(tr);
                 this.updateCount();
+                this.formUpdateEl.reset();
 
                 this.showPanelCreate();
                 btn.disabled = false;
@@ -61,7 +51,6 @@ class UserController
             (e) => {
                 console.error(e);
             });
-            this.formUpdateEl.reset();
         });
     }
 
@@ -163,9 +152,11 @@ class UserController
     {
         let users = [];
 
-        if(sessionStorage.getItem("users"))
+        // if(sessionStorage.getItem("users"))
+        if(localStorage.getItem("users"))
         {
-            users = JSON.parse(sessionStorage.getItem("users"));
+            // users = JSON.parse(sessionStorage.getItem("users"));
+            users = JSON.parse(localStorage.getItem("users"));
         }
 
         return users;
@@ -187,11 +178,19 @@ class UserController
         let users = this.getUsersStorage();
         users.push(data);
 
-        sessionStorage.setItem("users",JSON.stringify(users));
+        // sessionStorage.setItem("users",JSON.stringify(users));
+        localStorage.setItem("users",JSON.stringify(users));
     }
     addLine(dataUser)
     {
-        let tr = document.createElement("tr");
+        let tr = this.getTr(dataUser);
+        this.tableEl.appendChild(tr);
+        this.updateCount();
+    }
+    
+    getTr(dataUser, tr = null)
+    {
+        if(tr === null) tr = document.createElement("tr");
 
         tr.dataset.user = JSON.stringify(dataUser);
 
@@ -209,12 +208,8 @@ class UserController
 
         this.addEventsTr(tr);
 
-        
-        this.tableEl.appendChild(tr);
-        
-        this.updateCount();
+        return tr;
     }
-    
     addEventsTr(tr)
     {
         tr.querySelector(".btn-delete").addEventListener('click', () => {
