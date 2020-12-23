@@ -27,20 +27,24 @@ class UserController
             let index = this.formUpdateEl.dataset.trindex;
             let tr = this.tableEl.rows[index];
             let userOld = JSON.parse(tr.dataset.user);
+            let result = Object.assign({}, userOld, values);
 
             this.getPhoto(this.formUpdateEl).then((content) => {
+                
+
                 if(!values.photo)
                 {
-                    values._photo = userOld._photo;
+                    result._photo = userOld._photo;
                 }
                 else
                 {
-                    values._photo = content;
+                    result._photo = content;
                 }
-
+                
                 let user = new User();
-                user.loadFromJSON(values);
-                tr = this.getTr(user, tr);
+                user.loadFromJSON(result);
+                user.save();
+                this.getTr(user, tr);
                 
                 this.updateCount();
                 this.formUpdateEl.reset();
@@ -67,7 +71,7 @@ class UserController
 
             this.getPhoto(this.formEl).then((content) => {
                 values.photo = content;
-                this.insert(values);
+                values.save();
                 this.addLine(values);
 
                 this.formEl.reset();
@@ -171,15 +175,6 @@ class UserController
            user.loadFromJSON(dataUser);
            this.addLine(user);
        })
-    }
-
-    insert(data)
-    {
-        let users = this.getUsersStorage();
-        users.push(data);
-
-        // sessionStorage.setItem("users",JSON.stringify(users));
-        localStorage.setItem("users",JSON.stringify(users));
     }
     addLine(dataUser)
     {
