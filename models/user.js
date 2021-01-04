@@ -117,4 +117,17 @@ class User
         // sessionStorage.setItem("users",JSON.stringify(users));
         localStorage.setItem("users",JSON.stringify(users));
     }
+    remove()
+    {
+        let users = User.getUsersStorage();
+
+        users.forEach((userData, index) => {
+            if(this._id == userData._id)
+            {
+                users.splice(index, 1);
+            }
+        });
+        
+        localStorage.setItem("users",JSON.stringify(users));
+    }
 }
