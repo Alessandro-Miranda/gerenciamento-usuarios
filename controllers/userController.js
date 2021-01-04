@@ -124,8 +124,7 @@ class UserController
         let user = {};
         let isValid = true;
 
-        [...formEl.elements].forEach(field =>
-        {
+        [...formEl.elements].forEach(field => {
             // Verifica se os itens que estão passando no array são algum desses campos
             if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value)
             {
@@ -166,8 +165,7 @@ class UserController
     {
         let users = User.getUsersStorage();
 
-        users.forEach(dataUser =>
-        {
+        users.forEach(dataUser => {
             let user = new User();
 
             user.loadFromJSON(dataUser);
@@ -270,8 +268,7 @@ class UserController
     {
         let numberUsers = 0, numberAdmin = 0;
 
-        [...this.tableEl.children].forEach(tr =>
-        {
+        [...this.tableEl.children].forEach(tr => {
             numberUsers++;
 
             let user = JSON.parse(tr.dataset.user)
