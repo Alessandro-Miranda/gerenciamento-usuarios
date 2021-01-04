@@ -122,8 +122,7 @@ class User
     {
         let users = User.getUsersStorage();
 
-        users.forEach((userData, index) =>
-        {
+        users.forEach((userData, index) => {
             if(this._id == userData._id)
             {
                 users.splice(index, 1);
