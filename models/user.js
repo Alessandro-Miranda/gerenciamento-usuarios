@@ -53,7 +53,7 @@ class User
     {
         return this._admin;
     }
-    
+
     set photo(value)
     {
         this._photo = value;
@@ -67,7 +67,7 @@ class User
             {
                 case '_register':
                     this[name] = new Date(json[name]);
-                break;
+                    break;
 
                 default:
                     this[name] = json[name];
@@ -101,7 +101,8 @@ class User
         let users = User.getUsersStorage();
         if(this.id > 0)
         {
-            users.map(u => {
+            users.map(u =>
+            {
                 if(u._id == this._id)
                 {
                     Object.assign(u, this);
@@ -115,19 +116,20 @@ class User
             users.push(this);
         }
         // sessionStorage.setItem("users",JSON.stringify(users));
-        localStorage.setItem("users",JSON.stringify(users));
+        localStorage.setItem("users", JSON.stringify(users));
     }
     remove()
     {
         let users = User.getUsersStorage();
 
-        users.forEach((userData, index) => {
+        users.forEach((userData, index) =>
+        {
             if(this._id == userData._id)
             {
                 users.splice(index, 1);
             }
         });
-        
-        localStorage.setItem("users",JSON.stringify(users));
+
+        localStorage.setItem("users", JSON.stringify(users));
     }
 }
